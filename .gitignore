@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+backend/annasetu.db
+.vscode/
+*.exe
+*.env
+.env
+venv/
+env/
+*.log

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnnaSetu - Smart Agricultural Procurement & Surplus Redistribution</title>
+    
+    <!-- External Frameworks & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        amber: { 500: '#f59e0b', 600: '#d97706' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Modular CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-agri-600 text-white p-2.5 rounded-xl shadow-md shadow-agri-600/20 flex items-center justify-center">
+                        <i data-lucide="sprout" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold bg-gradient-to-r from-agri-800 to-agri-600 bg-clip-text text-transparent">AnnaSetu</span>
+                        <span class="hidden sm:inline-block text-xs font-semibold px-2 py-0.5 ml-2 bg-agri-100 text-agri-800 rounded-full border border-agri-200">
+                            Smart AgTech
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-4">
+                    <button onclick="scrollToSection('hero')" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-agri-600 rounded-lg hover:bg-slate-50 transition">Overview</button>
+                    <button onclick="scrollToSection('mandi-rates')" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-agri-600 rounded-lg hover:bg-slate-50 transition">Mandi Rates</button>
+                    <button onclick="scrollToSection('modules-tab-container')" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-agri-600 rounded-lg hover:bg-slate-50 transition">Portals</button>
+                    <button onclick="scrollToSection('analytics-section')" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-agri-600 rounded-lg hover:bg-slate-50 transition">Analytics</button>
+                    <button onclick="scrollToSection('grievance-faq')" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-agri-600 rounded-lg hover:bg-slate-50 transition">Support & FAQ</button>
+                </nav>
+
+                <!-- Role Selector & Live Status Badge -->
+                <div class="flex items-center space-x-3">
+                    <div class="hidden lg:flex items-center space-x-2 bg-agri-50 border border-agri-200 text-agri-800 px-3 py-1.5 rounded-full text-xs font-medium">
+                        <span class="w-2 h-2 rounded-full bg-agri-500 animate-pulse-slow"></span>
+                        <span id="system-status">System: Initializing...</span>
+                    </div>
+
+                    <div class="relative">
+                        <select id="user-role-select" class="bg-slate-100 border border-slate-300 text-slate-700 text-xs sm:text-sm rounded-lg focus:ring-agri-500 focus:border-agri-500 block p-2 pr-7 font-medium cursor-pointer shadow-sm">
+                            <option value="farmer">👨‍🌾 Role: Farmer</option>
+                            <option value="vendor">🏭 Role: Procurement/Vendor</option>
+                            <option value="ngo">🤝 Role: NGO / Redistribution</option>
+                            <option value="admin">📊 Role: Admin Oversight</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="hero" class="relative bg-gradient-to-b from-agri-900 via-agri-800 to-slate-900 text-white py-12 lg:py-16 overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#22c55e_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center space-x-2 bg-agri-500/20 border border-agri-400/30 px-3 py-1 rounded-full text-agri-200 text-xs sm:text-sm font-medium">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-agri-400"></i>
+                            <span>Direct Farmer-to-Procurement & Zero-Waste Surplus Bridge</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                            Smart Agricultural Procurement & <span class="text-agri-300">Surplus Redistribution</span> Platform
+                        </h1>
+                        <p class="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+                            Connecting farmers directly with transparent institutional buyers, while bridging commercial kitchen food surplus with verified community redistribution networks.
+                        </p>
+                                  
+                        <!-- Quick Action Buttons -->
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button onclick="setActiveTab('agri-portal'); scrollToSection('modules-tab-container');" class="bg-agri-500 hover:bg-agri-600 text-slate-950 font-bold px-5 py-3 rounded-xl shadow-lg hover:shadow-agri-500/20 transition flex items-center space-x-2 text-sm">
+                                <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                                <span>List Farmer Produce</span>
+                            </button>
+                            <button onclick="setActiveTab('surplus-bridge'); scrollToSection('modules-tab-container');" class="bg-white/10 hover:bg-white/20 text-white font-medium px-5 py-3 rounded-xl border border-white/20 backdrop-blur-sm transition flex items-center space-x-2 text-sm">
+                                <i data-lucide="heart-handshake" class="w-4 h-4 text-agri-300"></i>
+                                <span>Reserve Surplus Food</span>
+                            </button>
+                            <button onclick="setActiveTab('smart-match'); scrollToSection('modules-tab-container');" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-medium px-5 py-3 rounded-xl border border-amber-500/30 transition flex items-center space-x-2 text-sm">
+                                <i data-lucide="route" class="w-4 h-4"></i>
+                                <span>Simulate Smart Match</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Platform Summary Stats Widget -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 shadow-2xl text-white space-y-4">
+                            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                                <h3 class="font-semibold text-agri-200 text-sm tracking-wide uppercase">Impact Counter (Real-Time)</h3>
+                                <span class="text-xs bg-agri-500/30 text-agri-200 px-2 py-0.5 rounded border border-agri-400/30">Live Sync</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50">
+                                    <div class="text-xs text-slate-400">Connected Farmers</div>
+                                    <div class="text-2xl font-bold text-white mt-1" id="stat-farmers">14,280+</div>
+                                    <div class="text-[10px] text-agri-400 font-medium mt-0.5">↑ 12% this month</div>
+                                </div>
+                                <div class="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50">
+                                    <div class="text-xs text-slate-400">Tons Procured</div>
+                                    <div class="text-2xl font-bold text-white mt-1" id="stat-procured">38,450</div>
+                                    <div class="text-[10px] text-agri-400 font-medium mt-0.5">Direct fair MSP pricing</div>
+                                </div>
+                                <div class="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50">
+                                    <div class="text-xs text-slate-400">Meals Saved (Surplus)</div>
+                                    <div class="text-2xl font-bold text-amber-300 mt-1" id="stat-meals">124,900</div>
+                                    <div class="text-[10px] text-amber-400 font-medium mt-0.5">Redistributed to NGOs</div>
+                                </div>
+                                <div class="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50">
+                                    <div class="text-xs text-slate-400">Active Mandis & Hubs</div>
+                                    <div class="text-2xl font-bold text-white mt-1">218</div>
+                                    <div class="text-[10px] text-slate-400 font-medium mt-0.5">Across 14 Districts</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mandi Market Rates Section -->
+        <section id="mandi-rates" class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <i data-lucide="trending-up" class="w-6 h-6 text-agri-600"></i>
+                        Live Mandi & Support Rates Search
+                    </h2>
+                    <p class="text-slate-500 text-sm mt-1">Compare Govt MSP (Minimum Support Price) with local district market procurement benchmarks.</p>
+                </div>
+
+                <!-- Ticker Search & Filter Input -->
+                <div class="flex items-center space-x-2">
+                    <div class="relative min-w-[240px]">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                        <input type="text" id="mandi-search-input" placeholder="Filter crop or mandi district..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-agri-500 focus:border-agri-500 shadow-sm">
+                    </div>
+                    <button id="mandi-search-reset" class="px-3 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition border border-slate-300">
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ticker Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="mandi-rates-grid">
+                <!-- Dynamically Populated Cards via UI layer -->
+            </div>
+        </section>
+
+        <!-- Portals Tab Container -->
+        <section id="modules-tab-container" class="py-8 bg-slate-100 border-t border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Tab Controls Bar -->
+                <div class="flex border-b border-slate-300 space-x-6 sm:space-x-8 overflow-x-auto custom-scrollbar mb-6 bg-white px-6 pt-3 rounded-t-xl shadow-sm">
+                    <button id="tab-btn-agri-portal" class="tab-btn active py-3 px-1 text-sm font-semibold border-b-2 border-transparent transition flex items-center space-x-2 whitespace-nowrap">
+                        <i data-lucide="tractor" class="w-4 h-4"></i>
+                        <span>Agri-Procurement Portal</span>
+                    </button>
+                    <button id="tab-btn-surplus-bridge" class="tab-btn py-3 px-1 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition flex items-center space-x-2 whitespace-nowrap">
+                        <i data-lucide="utensils" class="w-4 h-4"></i>
+                        <span>Surplus Food Bridge</span>
+                    </button>
+                    <button id="tab-btn-smart-match" class="tab-btn py-3 px-1 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition flex items-center space-x-2 whitespace-nowrap">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Smart Match & Route Logistics</span>
+                    </button>
+                </div>
+
+                <!-- Tab 1: Agri Procurement Portal -->
+                <div id="tab-content-agri-portal" class="tab-content space-y-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        
+                        <!-- Left: Farmer Pocket Ledger Form -->
+                        <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                        <i data-lucide="book-open" class="w-5 h-5 text-agri-600"></i>
+                                        Farmer Pocket Ledger
+                                    </h3>
+                                    <p class="text-xs text-slate-500">Record harvest details for direct buyer procurement.</p>
+                                </div>
+                                <span class="text-xs bg-agri-100 text-agri-800 font-medium px-2.5 py-1 rounded-full">New Entry</span>
+                            </div>
+
+                            <form id="farmer-ledger-form" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Farmer / Producer Name</label>
+                                    <input type="text" id="ledger-farmer-name" required placeholder="e.g. Ramesh Kumar" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-agri-500">
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Crop Type</label>
+                                        <select id="ledger-crop" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-agri-500 bg-white">
+                                            <option value="Wheat (Lokwan)">🌾 Wheat (Lokwan)</option>
+                                            <option value="Paddy Rice (Basmati)">🌾 Paddy Rice</option>
+                                            <option value="Cotton (Long Staple)">☁️ Cotton</option>
+                                            <option value="Soybean (Yellow)">🫘 Soybean</option>
+                                            <option value="Maize (Hybrid)">🌽 Maize</option>
+                                            <option value="Onion (Red)">🧅 Red Onion</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Quantity (Quintals)</label>
+                                        <input type="number" id="ledger-qty" min="1" max="1000" required placeholder="e.g. 50" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-agri-500">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Expected Rate (₹/Quintal)</label>
+                                        <input type="number" id="ledger-price" min="500" required placeholder="e.g. 2300" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-agri-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">District / Mandi</label>
+                                        <input type="text" id="ledger-location" required placeholder="e.g. Karnal, Haryana" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-agri-500">
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="message-square" class="w-4 h-4 text-emerald-600"></i>
+                                        <span class="text-xs text-slate-700 font-medium">WhatsApp Dispatch Alerts</span>
+                                    </div>
+                                    <input type="checkbox" id="ledger-whatsapp" checked class="w-4 h-4 text-agri-600 rounded focus:ring-agri-500">
+                                </div>
+
+                                <button type="submit" class="w-full bg-agri-600 hover:bg-agri-700 text-white font-semibold py-2.5 rounded-lg shadow transition flex items-center justify-center space-x-2 text-sm">
+                                    <i data-lucide="save" class="w-4 h-4"></i>
+                                    <span>Submit Harvest Listing</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Right: Interactive Procurement Requests Table -->
+                        <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                            <div>
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
+                                    <div>
+                                        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                            <i data-lucide="list" class="w-5 h-5 text-agri-600"></i>
+                                            Live Procurement Orders & Requests
+                                        </h3>
+                                        <p class="text-xs text-slate-500">Manage real-time harvest orders matched with government and institutional vendors.</p>
+                                    </div>
+
+                                    <!-- Filter Status Buttons -->
+                                    <div class="flex space-x-1 bg-slate-100 p-1 rounded-lg self-start sm:self-auto">
+                                        <button data-status="all" class="proc-filter-btn px-2.5 py-1 text-xs font-semibold rounded bg-white text-slate-800 shadow-xs">All</button>
+                                        <button data-status="Pending" class="proc-filter-btn px-2.5 py-1 text-xs font-medium rounded text-slate-600 hover:text-slate-900">Pending</button>
+                                        <button data-status="Matched" class="proc-filter-btn px-2.5 py-1 text-xs font-medium rounded text-slate-600 hover:text-slate-900">Matched</button>
+                                        <button data-status="In-Transit" class="proc-filter-btn px-2.5 py-1 text-xs font-medium rounded text-slate-600 hover:text-slate-900">Transit</button>
+                                    </div>
+                                </div>
+
+                                <!-- Requests Data Table -->
+                                <div class="overflow-x-auto custom-scrollbar">
+                                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                                        <thead>
+                                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider">
+                                                <th class="p-3">ID / Farmer</th>
+                                                <th class="p-3">Crop / Vol</th>
+                                                <th class="p-3">Location</th>
+                                                <th class="p-3">Est. Value</th>
+                                                <th class="p-3">Status</th>
+                                                <th class="p-3 text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="procurement-table-body" class="divide-y divide-slate-100">
+                                            <!-- Dynamically generated rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                                <span>Showing active procurement records</span>
+                                <span class="font-medium text-agri-700">Digital Receipt Generation Enabled</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Tab 2: Surplus Food Bridge -->
+                <div id="tab-content-surplus-bridge" class="tab-content hidden space-y-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        
+                        <!-- Left: List Surplus Food Form -->
+                        <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                        <i data-lucide="heart" class="w-5 h-5 text-amber-500"></i>
+                                        List Commercial Kitchen Surplus
+                                    </h3>
+                                    <p class="text-xs text-slate-500">Hotels, canteens & events listing safe edible food for redistribution.</p>
+                                </div>
+                                <span class="text-xs bg-amber-100 text-amber-800 font-medium px-2.5 py-1 rounded-full">Zero Food Waste</span>
+                            </div>
+
+                            <form id="surplus-food-form" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Donor Organization / Canteen</label>
+                                    <input type="text" id="surplus-donor" required placeholder="e.g. Grand Apex Hotel Canteen" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-amber-500">
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Food Category</label>
+                                        <select id="surplus-category" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-amber-500 bg-white">
+                                            <option value="Cooked Meals (Veg)">🍲 Cooked Meals (Veg)</option>
+                                            <option value="Packaged / Dry Rations">📦 Packaged Rations</option>
+                                            <option value="Fresh Produce / Fruits">🍎 Fresh Fruits & Greens</option>
+                                            <option value="Bakery / Breads">🍞 Bakery Items</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Servings Available</label>
+                                        <input type="number" id="surplus-servings" min="10" required placeholder="e.g. 150" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-amber-500">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Safe Pickup Window</label>
+                                        <input type="text" id="surplus-window" required placeholder="e.g. Next 3 Hours" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-amber-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Pickup Location Zone</label>
+                                        <input type="text" id="surplus-location" required placeholder="e.g. North Sector 4" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-amber-500">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold py-2.5 rounded-lg shadow transition flex items-center justify-center space-x-2 text-sm">
+                                    <i data-lucide="share-2" class="w-4 h-4"></i>
+                                    <span>Broadcast Surplus Food</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Right: Active Surplus Available Directory -->
+                        <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                        <i data-lucide="map-pin" class="w-5 h-5 text-amber-500"></i>
+                                        Available Food Batches (Near You)
+                                    </h3>
+                                    <p class="text-xs text-slate-500">NGOs, shelters and community centers can claim and reserve immediate pickup.</p>
+                                </div>
+                                <span class="text-xs font-medium text-slate-500" id="surplus-count-badge">3 Batches Active</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="surplus-directory-grid">
+                                <!-- Dynamically Rendered Surplus Cards -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Tab 3: Smart Match & Dynamic Transit Engine -->
+                <div id="tab-content-smart-match" class="tab-content hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                    <i data-lucide="sparkles" class="w-6 h-6 text-agri-600"></i>
+                                    Smart Match & Dynamic Transit Engine
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-500 mt-1">
+                                    Simulate algorithmic matching between cluster harvest points, procurement centers, and surplus donation routes.
+                                </p>
+                            </div>
+                            <button id="btn-run-smart-match" class="bg-gradient-to-r from-agri-600 to-agri-800 hover:from-agri-700 hover:to-agri-900 text-white px-5 py-2.5 rounded-xl font-semibold shadow flex items-center space-x-2 text-sm transition">
+                                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                                <span>Run Smart Match Algorithm</span>
+                            </button>
+                        </div>
+
+                        <!-- Logistics Visualization Interactive Card -->
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            
+                            <!-- Step 1: Match Generator Log -->
+                            <div class="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs space-y-2 h-64 overflow-y-auto custom-scrollbar" id="match-log-box">
+                                <div class="text-agri-400 font-bold">// Engine Status: Ready</div>
+                                <div>[SYS] Press "Run Smart Match Algorithm" to execute route optimization.</div>
+                                <div class="text-slate-500">// Waiting for user trigger...</div>
+                            </div>
+
+                            <!-- Step 2: Optimal Dispatch Map Simulation -->
+                            <div class="lg:col-span-2 bg-slate-100 rounded-xl p-4 border border-slate-200 flex flex-col justify-between relative overflow-hidden min-h-[250px]">
+                                <div class="flex items-center justify-between text-xs font-semibold text-slate-600">
+                                    <span>SIMULATED CORRIDOR ROUTE MAP</span>
+                                    <span class="text-agri-700 flex items-center gap-1"><i data-lucide="navigation" class="w-3 h-3"></i> Route #AG-9042</span>
+                                </div>
+
+                                <!-- Visual Graphic representation of route -->
+                                <div class="my-6 relative flex items-center justify-between px-6">
+                                    <div class="absolute left-10 right-10 top-1/2 h-1 bg-slate-300 -translate-y-1/2 z-0"></div>
+                                    <div id="route-line-active" class="absolute left-10 w-0 top-1/2 h-1 bg-agri-500 -translate-y-1/2 z-0 transition-all duration-1000"></div>
+
+                                    <div class="relative z-10 flex flex-col items-center">
+                                        <div class="w-10 h-10 rounded-full bg-agri-600 text-white flex items-center justify-center font-bold text-xs shadow">
+                                            <i data-lucide="wheat" class="w-5 h-5"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold text-slate-800 mt-2">Karnal Cluster</span>
+                                        <span class="text-[10px] text-slate-500">Farmer Hub</span>
+                                    </div>
+
+                                    <div class="relative z-10 flex flex-col items-center">
+                                        <div class="w-10 h-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xs shadow">
+                                            <i data-lucide="truck" class="w-5 h-5"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold text-slate-800 mt-2">Corridor Transit</span>
+                                        <span class="text-[10px] text-slate-500">42 km (1h 10m)</span>
+                                    </div>
+
+                                    <div class="relative z-10 flex flex-col items-center">
+                                        <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow">
+                                            <i data-lucide="building-2" class="w-5 h-5"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold text-slate-800 mt-2">Delhi Central Warehouse</span>
+                                        <span class="text-[10px] text-slate-500">Procurement Depot</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between bg-white p-3 rounded-lg border border-slate-200 text-xs">
+                                    <div>
+                                        <span class="text-slate-500">Optimized Vehicle:</span>
+                                        <span class="font-bold text-slate-800 ml-1">Electric EV-Truck 4.5T</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-slate-500">Est. Carbon Reduction:</span>
+                                        <span class="font-bold text-agri-600 ml-1">142 kg CO₂</span>
+                                    </div>
+                                    <button onclick="handleViewPass('ORD-8821')" class="text-agri-700 underline font-semibold hover:text-agri-800">
+                                        View Digital Transit Pass
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics-section" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900">Procurement & Impact Analytics</h2>
+                <p class="text-slate-500 text-sm mt-1">Real-time statistics regarding price stabilization, crop quantities, and food safety.</p>
+            </div>
+
+            <!-- Visualizations -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                
+                <!-- Card 1: Volume Breakdown -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-slate-800 text-sm">Procurement Volume by Crop</h4>
+                        <i data-lucide="pie-chart" class="w-4 h-4 text-slate-400"></i>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                                <span>Wheat (Lokwan)</span>
+                                <span>45% (17,300 Tons)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-2">
+                                <div class="bg-agri-600 h-2 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                                <span>Paddy Rice</span>
+                                <span>30% (11,530 Tons)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-2">
+                                <div class="bg-amber-500 h-2 rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                                <span>Soybean & Pulses</span>
+                                <span>25% (9,620 Tons)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Food Rescue Reach -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-slate-800 text-sm">Food Surplus Rescue Efficiency</h4>
+                        <i data-lucide="bar-chart-2" class="w-4 h-4 text-slate-400"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-3xl font-extrabold text-slate-900">94.8%</div>
+                        <p class="text-xs text-slate-500">Of listed commercial surplus meals are successfully picked up within the 3-hour freshness window.</p>
+                        <div class="pt-2 flex items-center space-x-2 text-xs font-semibold text-agri-700">
+                            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                            <span>Zero Food Safety Violations Reported</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Farmer Income Uplift -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-slate-800 text-sm">Direct Income Uplift</h4>
+                        <i data-lucide="trending-up" class="w-4 h-4 text-slate-400"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-3xl font-extrabold text-agri-700">+18.2%</div>
+                        <p class="text-xs text-slate-500">Average profit margin increase for farmers using AnnaSetu direct procurement vs traditional middleman channels.</p>
+                        <div class="pt-2 flex items-center space-x-2 text-xs text-slate-600">
+                            <i data-lucide="clock" class="w-4 h-4 text-slate-400"></i>
+                            <span>Payment settlement within 24 hours</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="grievance-faq" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Grievance Form -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="text-lg font-bold text-slate-900 mb-1 flex items-center gap-2">
+                        <i data-lucide="help-circle" class="w-5 h-5 text-agri-600"></i>
+                        Farmer & Vendor Support / Grievance
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Have an issue regarding procurement rates, weight verification, or pickup logistics? Submit directly here.</p>
+
+                    <form id="grievance-form" class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Your Full Name</label>
+                            <input type="text" id="grievance-name" required placeholder="e.g. Gurpreet Singh" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-agri-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Issue Category</label>
+                            <select id="grievance-category" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-agri-500 bg-white">
+                                <option value="Payment Delay">Payment & Direct Benefit Delay</option>
+                                <option value="Weight Discrepancy">Mandi Weight Quality Check</option>
+                                <option value="Logistics Driver">Transit / Driver Coordination</option>
+                                <option value="General Query">General Platform Inquiry</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Detailed Message</label>
+                            <textarea id="grievance-msg" rows="3" required placeholder="Describe your issue or order ID..." class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-agri-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2.5 rounded-lg transition text-sm flex items-center justify-center space-x-2">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Submit Grievance Ticket</span>
+                        </button>
+                    </form>
+                    <div id="grievance-feedback" class="hidden mt-3 p-3 bg-agri-50 border border-agri-200 text-agri-800 text-xs rounded-lg"></div>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="lg:col-span-7 space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Frequently Asked Questions</h3>
+
+                    <div class="space-y-3" id="faq-container">
+                        <div class="border border-slate-200 bg-white rounded-xl overflow-hidden">
+                            <button onclick="toggleFaq(1)" class="w-full text-left p-4 font-semibold text-sm text-slate-800 flex justify-between items-center hover:bg-slate-50">
+                                <span>How does AnnaSetu guarantee MSP & fair pricing for farmers?</span>
+                                <i data-lucide="chevron-down" id="faq-icon-1" class="w-4 h-4 transition-transform duration-200"></i>
+                            </button>
+                            <div id="faq-answer-1" class="hidden p-4 pt-0 text-xs text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50">
+                                AnnaSetu integrates directly with official district Mandi API feeds to benchmark minimum support prices (MSP). Listings below MSP trigger an automatic review to ensure farmers receive baseline remuneration.
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 bg-white rounded-xl overflow-hidden">
+                            <button onclick="toggleFaq(2)" class="w-full text-left p-4 font-semibold text-sm text-slate-800 flex justify-between items-center hover:bg-slate-50">
+                                <span>How is food safety maintained on the Surplus Food Bridge?</span>
+                                <i data-lucide="chevron-down" id="faq-icon-2" class="w-4 h-4 transition-transform duration-200"></i>
+                            </button>
+                            <div id="faq-answer-2" class="hidden p-4 pt-0 text-xs text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50">
+                                All commercial kitchens listing food must sign safety compliance declarations. Surplus items have strict mandatory pickup timeframes (under 3 hours) and insulated temperature-controlled logistics.
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 bg-white rounded-xl overflow-hidden">
+                            <button onclick="toggleFaq(3)" class="w-full text-left p-4 font-semibold text-sm text-slate-800 flex justify-between items-center hover:bg-slate-50">
+                                <span>Can small individual farmers list small harvest quantities?</span>
+                                <i data-lucide="chevron-down" id="faq-icon-3" class="w-4 h-4 transition-transform duration-200"></i>
+                            </button>
+                            <div id="faq-answer-3" class="hidden p-4 pt-0 text-xs text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50">
+                                Yes! Smallholder farmers can aggregate their harvests into local village cluster pools using the Farmer Pocket Ledger to fulfill larger institutional vendor orders.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2">
+                <div class="bg-agri-600 text-white p-1.5 rounded-lg">
+                    <i data-lucide="sprout" class="w-4 h-4"></i>
+                </div>
+                <span class="text-sm font-bold text-white">AnnaSetu</span>
+                <span class="text-slate-500">| Smart AgTech & Zero-Waste Platform</span>
+            </div>
+            <div>
+                © 2026 AnnaSetu Platform. All Rights Reserved. Built for Agricultural Efficiency & Food Security.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal: Digital Transit Pass -->
+    <div id="modal-transit-pass" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white max-w-md w-full rounded-2xl p-6 shadow-2xl border border-slate-100 relative space-y-4">
+            <button id="btn-close-pass-x" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <div class="bg-agri-100 text-agri-800 p-2 rounded-xl">
+                    <i data-lucide="qr-code" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900">Digital Agricultural Transit Pass</h3>
+                    <p class="text-xs text-slate-500">Official e-Way Bill & Mandi Verification</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs">
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Pass Identification:</span>
+                    <span class="font-mono font-bold text-slate-800" id="transit-pass-id">AS-PASS-2026-9042</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Commodity & Volume:</span>
+                    <span class="font-bold text-slate-800" id="transit-pass-commodity">Wheat Lokwan (120 Quintals)</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Origin / Destination:</span>
+                    <span class="font-bold text-slate-800" id="transit-pass-route">Karnal Mandi → Central Warehouse</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Green Corridor Clearance:</span>
+                    <span class="text-agri-700 font-bold" id="transit-pass-clearance">APPROVED (Fast-Track)</span>
+                </div>
+            </div>
+
+            <!-- QR graphic -->
+            <div class="bg-white border-2 border-dashed border-slate-300 p-4 rounded-xl flex flex-col items-center justify-center space-y-2">
+                <div class="w-32 h-32 bg-slate-900 rounded flex items-center justify-center text-white text-[10px] font-mono text-center p-2" id="transit-pass-qr">
+                    [DIGITAL QR CODE]
+                    <br>Scan at Mandi Checkpost
+                    <br><span class="text-[8px] text-agri-400 font-mono mt-1" id="transit-pass-vehicle">EV-Truck 4.5T</span>
+                </div>
+                <span class="text-[10px] text-slate-400 font-mono" id="transit-pass-hash">HASH: 8f9b2a1c0d3e4f5a</span>
+            </div>
+
+            <button id="btn-close-pass-modal" class="w-full bg-agri-600 hover:bg-agri-700 text-white font-semibold py-2.5 rounded-lg text-xs transition">
+                Close Pass Detail
+            </button>
+        </div>
+    </div>
+
+    <!-- Modular Application Script -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
